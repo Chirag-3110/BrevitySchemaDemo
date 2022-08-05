@@ -11,7 +11,7 @@ export const createUser = /* GraphQL */ `
       name
       isAdmin
       phone
-      superwiserEmail {
+      supervisor {
         email
         name
         isAdmin
@@ -41,6 +41,9 @@ export const createUser = /* GraphQL */ `
         nextToken
       }
       notifications {
+        nextToken
+      }
+      OrganizationWorkFlow {
         nextToken
       }
       createdAt
@@ -58,7 +61,7 @@ export const updateUser = /* GraphQL */ `
       name
       isAdmin
       phone
-      superwiserEmail {
+      supervisor {
         email
         name
         isAdmin
@@ -88,6 +91,9 @@ export const updateUser = /* GraphQL */ `
         nextToken
       }
       notifications {
+        nextToken
+      }
+      OrganizationWorkFlow {
         nextToken
       }
       createdAt
@@ -105,7 +111,7 @@ export const deleteUser = /* GraphQL */ `
       name
       isAdmin
       phone
-      superwiserEmail {
+      supervisor {
         email
         name
         isAdmin
@@ -137,6 +143,9 @@ export const deleteUser = /* GraphQL */ `
       notifications {
         nextToken
       }
+      OrganizationWorkFlow {
+        nextToken
+      }
       createdAt
       updatedAt
     }
@@ -152,8 +161,6 @@ export const createOrder = /* GraphQL */ `
       orderName
       description
       currentStatus
-      lastUpDate
-      currentTime
       createdDate
       OrderJSON
       dueDate
@@ -206,6 +213,7 @@ export const createOrder = /* GraphQL */ `
         SaveAsDraft
         createdAt
         updatedAt
+        userOrganizationWorkFlowId
       }
       createdAt
       updatedAt
@@ -223,8 +231,6 @@ export const updateOrder = /* GraphQL */ `
       orderName
       description
       currentStatus
-      lastUpDate
-      currentTime
       createdDate
       OrderJSON
       dueDate
@@ -277,6 +283,7 @@ export const updateOrder = /* GraphQL */ `
         SaveAsDraft
         createdAt
         updatedAt
+        userOrganizationWorkFlowId
       }
       createdAt
       updatedAt
@@ -294,8 +301,6 @@ export const deleteOrder = /* GraphQL */ `
       orderName
       description
       currentStatus
-      lastUpDate
-      currentTime
       createdDate
       OrderJSON
       dueDate
@@ -348,6 +353,7 @@ export const deleteOrder = /* GraphQL */ `
         SaveAsDraft
         createdAt
         updatedAt
+        userOrganizationWorkFlowId
       }
       createdAt
       updatedAt
@@ -393,8 +399,6 @@ export const createOrderTask = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate
@@ -463,8 +467,6 @@ export const updateOrderTask = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate
@@ -533,8 +535,6 @@ export const deleteOrderTask = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate
@@ -618,6 +618,7 @@ export const createWorkflow = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userOrganizationWorkFlowId
     }
   }
 `;
@@ -674,6 +675,7 @@ export const updateWorkflow = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userOrganizationWorkFlowId
     }
   }
 `;
@@ -730,6 +732,7 @@ export const deleteWorkflow = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userOrganizationWorkFlowId
     }
   }
 `;
@@ -739,7 +742,7 @@ export const createWorkflowDefinition = /* GraphQL */ `
     $condition: ModelWorkflowDefinitionConditionInput
   ) {
     createWorkflowDefinition(input: $input, condition: $condition) {
-      workflowdefinitionid
+      id
       NodeName
       NextNodeName
       Description
@@ -752,8 +755,8 @@ export const createWorkflowDefinition = /* GraphQL */ `
         SaveAsDraft
         createdAt
         updatedAt
+        userOrganizationWorkFlowId
       }
-      id
       createdAt
       updatedAt
       workflowWorkflowdefinitionsId
@@ -766,7 +769,7 @@ export const updateWorkflowDefinition = /* GraphQL */ `
     $condition: ModelWorkflowDefinitionConditionInput
   ) {
     updateWorkflowDefinition(input: $input, condition: $condition) {
-      workflowdefinitionid
+      id
       NodeName
       NextNodeName
       Description
@@ -779,8 +782,8 @@ export const updateWorkflowDefinition = /* GraphQL */ `
         SaveAsDraft
         createdAt
         updatedAt
+        userOrganizationWorkFlowId
       }
-      id
       createdAt
       updatedAt
       workflowWorkflowdefinitionsId
@@ -793,7 +796,7 @@ export const deleteWorkflowDefinition = /* GraphQL */ `
     $condition: ModelWorkflowDefinitionConditionInput
   ) {
     deleteWorkflowDefinition(input: $input, condition: $condition) {
-      workflowdefinitionid
+      id
       NodeName
       NextNodeName
       Description
@@ -806,8 +809,8 @@ export const deleteWorkflowDefinition = /* GraphQL */ `
         SaveAsDraft
         createdAt
         updatedAt
+        userOrganizationWorkFlowId
       }
-      id
       createdAt
       updatedAt
       workflowWorkflowdefinitionsId
@@ -820,11 +823,11 @@ export const createUserNotifications = /* GraphQL */ `
     $condition: ModelUserNotificationsConditionInput
   ) {
     createUserNotifications(input: $input, condition: $condition) {
+      id
       userNotificationsId
       NotificationStatus
       NotificationContent
-      NotifyTime
-      id
+      NotificationTime
       createdAt
       updatedAt
     }
@@ -836,11 +839,11 @@ export const updateUserNotifications = /* GraphQL */ `
     $condition: ModelUserNotificationsConditionInput
   ) {
     updateUserNotifications(input: $input, condition: $condition) {
+      id
       userNotificationsId
       NotificationStatus
       NotificationContent
-      NotifyTime
-      id
+      NotificationTime
       createdAt
       updatedAt
     }
@@ -852,11 +855,11 @@ export const deleteUserNotifications = /* GraphQL */ `
     $condition: ModelUserNotificationsConditionInput
   ) {
     deleteUserNotifications(input: $input, condition: $condition) {
+      id
       userNotificationsId
       NotificationStatus
       NotificationContent
-      NotifyTime
-      id
+      NotificationTime
       createdAt
       updatedAt
     }
@@ -871,7 +874,26 @@ export const createTaskCommentMapping = /* GraphQL */ `
       id
       commentPath
       filePath
-      orderTask
+      orderTask {
+        id
+        orderName
+        description
+        currentStatus
+        createdDate
+        OrderJSON
+        dueDate
+        lastEditedOn
+        createdAt
+        updatedAt
+        workflowWorkflowOrdersId
+      }
+      ParentCommentID {
+        id
+        commentPath
+        filePath
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -886,7 +908,26 @@ export const updateTaskCommentMapping = /* GraphQL */ `
       id
       commentPath
       filePath
-      orderTask
+      orderTask {
+        id
+        orderName
+        description
+        currentStatus
+        createdDate
+        OrderJSON
+        dueDate
+        lastEditedOn
+        createdAt
+        updatedAt
+        workflowWorkflowOrdersId
+      }
+      ParentCommentID {
+        id
+        commentPath
+        filePath
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -901,7 +942,26 @@ export const deleteTaskCommentMapping = /* GraphQL */ `
       id
       commentPath
       filePath
-      orderTask
+      orderTask {
+        id
+        orderName
+        description
+        currentStatus
+        createdDate
+        OrderJSON
+        dueDate
+        lastEditedOn
+        createdAt
+        updatedAt
+        workflowWorkflowOrdersId
+      }
+      ParentCommentID {
+        id
+        commentPath
+        filePath
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -938,8 +998,6 @@ export const createUserOrderMapping = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate
@@ -984,8 +1042,6 @@ export const updateUserOrderMapping = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate
@@ -1030,8 +1086,6 @@ export const deleteUserOrderMapping = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate

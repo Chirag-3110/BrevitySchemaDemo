@@ -8,7 +8,7 @@ export const getUser = /* GraphQL */ `
       name
       isAdmin
       phone
-      superwiserEmail {
+      supervisor {
         email
         name
         isAdmin
@@ -38,6 +38,9 @@ export const getUser = /* GraphQL */ `
         nextToken
       }
       notifications {
+        nextToken
+      }
+      OrganizationWorkFlow {
         nextToken
       }
       createdAt
@@ -88,8 +91,6 @@ export const getOrder = /* GraphQL */ `
       orderName
       description
       currentStatus
-      lastUpDate
-      currentTime
       createdDate
       OrderJSON
       dueDate
@@ -142,6 +143,7 @@ export const getOrder = /* GraphQL */ `
         SaveAsDraft
         createdAt
         updatedAt
+        userOrganizationWorkFlowId
       }
       createdAt
       updatedAt
@@ -169,8 +171,6 @@ export const listOrders = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate
@@ -218,8 +218,6 @@ export const getOrderTask = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate
@@ -333,6 +331,7 @@ export const getWorkflow = /* GraphQL */ `
       }
       createdAt
       updatedAt
+      userOrganizationWorkFlowId
     }
   }
 `;
@@ -359,6 +358,7 @@ export const listWorkflows = /* GraphQL */ `
         SaveAsDraft
         createdAt
         updatedAt
+        userOrganizationWorkFlowId
       }
       nextToken
     }
@@ -367,7 +367,7 @@ export const listWorkflows = /* GraphQL */ `
 export const getWorkflowDefinition = /* GraphQL */ `
   query GetWorkflowDefinition($id: ID!) {
     getWorkflowDefinition(id: $id) {
-      workflowdefinitionid
+      id
       NodeName
       NextNodeName
       Description
@@ -380,8 +380,8 @@ export const getWorkflowDefinition = /* GraphQL */ `
         SaveAsDraft
         createdAt
         updatedAt
+        userOrganizationWorkFlowId
       }
-      id
       createdAt
       updatedAt
       workflowWorkflowdefinitionsId
@@ -400,12 +400,11 @@ export const listWorkflowDefinitions = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        workflowdefinitionid
+        id
         NodeName
         NextNodeName
         Description
         isRootNode
-        id
         createdAt
         updatedAt
         workflowWorkflowdefinitionsId
@@ -417,11 +416,11 @@ export const listWorkflowDefinitions = /* GraphQL */ `
 export const getUserNotifications = /* GraphQL */ `
   query GetUserNotifications($id: ID!) {
     getUserNotifications(id: $id) {
+      id
       userNotificationsId
       NotificationStatus
       NotificationContent
-      NotifyTime
-      id
+      NotificationTime
       createdAt
       updatedAt
     }
@@ -439,11 +438,11 @@ export const listUserNotifications = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
+        id
         userNotificationsId
         NotificationStatus
         NotificationContent
-        NotifyTime
-        id
+        NotificationTime
         createdAt
         updatedAt
       }
@@ -457,7 +456,26 @@ export const getTaskCommentMapping = /* GraphQL */ `
       id
       commentPath
       filePath
-      orderTask
+      orderTask {
+        id
+        orderName
+        description
+        currentStatus
+        createdDate
+        OrderJSON
+        dueDate
+        lastEditedOn
+        createdAt
+        updatedAt
+        workflowWorkflowOrdersId
+      }
+      ParentCommentID {
+        id
+        commentPath
+        filePath
+        createdAt
+        updatedAt
+      }
       createdAt
       updatedAt
     }
@@ -482,7 +500,6 @@ export const listTaskCommentMappings = /* GraphQL */ `
         id
         commentPath
         filePath
-        orderTask
         createdAt
         updatedAt
       }
@@ -518,8 +535,6 @@ export const getUserOrderMapping = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate
@@ -611,8 +626,6 @@ export const orderByOrderID = /* GraphQL */ `
         orderName
         description
         currentStatus
-        lastUpDate
-        currentTime
         createdDate
         OrderJSON
         dueDate
@@ -641,15 +654,42 @@ export const nodeByNodeandWorkFlowName = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
-        workflowdefinitionid
+        id
         NodeName
         NextNodeName
         Description
         isRootNode
-        id
         createdAt
         updatedAt
         workflowWorkflowdefinitionsId
+      }
+      nextToken
+    }
+  }
+`;
+export const notificatinoByUser = /* GraphQL */ `
+  query NotificatinoByUser(
+    $userNotificationsId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserNotificationsFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    notificatinoByUser(
+      userNotificationsId: $userNotificationsId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        userNotificationsId
+        NotificationStatus
+        NotificationContent
+        NotificationTime
+        createdAt
+        updatedAt
       }
       nextToken
     }
@@ -671,11 +711,11 @@ export const userByNotifStatus = /* GraphQL */ `
       nextToken: $nextToken
     ) {
       items {
+        id
         userNotificationsId
         NotificationStatus
         NotificationContent
-        NotifyTime
-        id
+        NotificationTime
         createdAt
         updatedAt
       }
@@ -702,7 +742,6 @@ export const commentByFilePath = /* GraphQL */ `
         id
         commentPath
         filePath
-        orderTask
         createdAt
         updatedAt
       }
