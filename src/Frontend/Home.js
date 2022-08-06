@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from "react-router-dom";
+import {Auth} from 'aws-amplify'
 function Home() {
     return (
         <div className="App">

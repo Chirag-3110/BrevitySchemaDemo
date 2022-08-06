@@ -10,6 +10,9 @@ import CreateNotificaion from './Frontend/Create/CreateUserNotifications';
 import CreateUser from './Frontend/Create/CreateUserPage';
 import CreateWorkflow from './Frontend/Create/CreateWorkflow';
 import CreateWorkFlowDefintion from './Frontend/Create/CreateWorkflowDefinition';
+import ReadWorkflow from './Frontend/Read/ReadWorkflow';
+import DeleteWorkFlow from './Frontend/Delete/DeleteWorkflow';
+import UpdateWorkFlow from './Frontend/Update/UpdateWorkflow';
 import Home from './Frontend/Home';
 function App() {
   return (
@@ -23,6 +26,9 @@ function App() {
         <Route path="/notification" element={<CreateNotificaion />} />
         <Route path="/workflow" element={<CreateWorkflow />} />
         <Route path="/workflowdefinition" element={<CreateWorkFlowDefintion />} />
+        <Route path="/readworkflow" element={<ReadWorkflow />} />
+        <Route path="/deleteworkflow" element={<DeleteWorkFlow />} />
+        <Route path="/updateworkflow" element={<UpdateWorkFlow />} />
       </Routes>
     </div>
   );
