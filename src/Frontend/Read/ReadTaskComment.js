@@ -7,7 +7,7 @@ export default function ReadTaskComment() {
             query: queries.listTaskCommentMappings,
             authMode: 'API_KEY'
         });
-        console.log(listComments);
+        console.log(listComments.data.listTaskCommentMappings.items);
     };
 
     return (
