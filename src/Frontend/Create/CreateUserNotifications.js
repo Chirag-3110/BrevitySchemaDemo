@@ -5,10 +5,12 @@ import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
+
 function CreateNotificaion() {
 
   const [userNotifId, setUserNotifId] = useState("");
   const [notifContent, setNotifContent] = useState("");
+  
   const CreateNotification = async () => {
     try {
       if (userNotifId == null || notifContent == null) {
