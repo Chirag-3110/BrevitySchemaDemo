@@ -1,52 +1,54 @@
 import React from 'react';
 import { useState } from 'react';
-import { API } from 'aws-amplify';
-
-import ReadUserNotifications from '../Read/ReadUserNotifications';
-import * as mutations from "../../graphql/mutations";
-
+import AddNotif from '../../Backend/APIS/NotificationAPI/AddNotif';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
 function CreateNotificaion() {
 
   const [userNotifId, setUserNotifId] = useState("");
   const [notifContent, setNotifContent] = useState("");
-
-  const notificationDetails = {
-    userNotificationsId: userNotifId,
-    NotificationStatus: 'UNSEEN',
-    NotificationContent: notifContent,
-    NotificationTime: "1930-01-01T16:00:00-07:00"
-  }
-
   const CreateNotification = async () => {
     try {
-      const newNotification = await API.graphql({ query: mutations.createUserNotifications, authMode: 'API_KEY', variables: { input: notificationDetails } });
-      console.log('Notification created: ', newNotification);
-      setUserNotifId("");
-      setNotifContent("");
+      if (userNotifId == null || notifContent == null) {
+        console.log("enter all the fields")
+      }
+      let notifResponse = await AddNotif(userNotifId, notifContent)
+      if (notifResponse)
+        console.log("notification Craeted")
     } catch (error) {
       console.log({ message: 'Error creating notification' });
     }
   }
 
   return (
-    <div className="App">
-      <h1>Welcome to NotificaionPage</h1>
-      <ReadUserNotifications />
+    <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div className="App">
+        <h1>Welcome to NotificaionPage</h1>
 
-      <div>
-        <div style={{ margin: 10}}>
-          <label htmlFor="FormControlInput1">Enter User Notification Id:</label>
-          <input type="email" id="FormControlInput1" placeholder="name@example.com" autoFocus required onChange={(e) => {setUserNotifId(e.target.value)}} />
+        <div>
+          <TextField style={{ margin: 10, width: 200 }} id="outlined-basic" label="Notification UserId" variant="outlined"
+            onChange={(userNotifId) => setUserNotifId(userNotifId.target.value)}
+          />
+          <TextField style={{ margin: 10, width: 200 }} id="outlined-basic" label="Notification Content" variant="outlined"
+            onChange={(notifContent) => setNotifContent(notifContent.target.value)}
+          />
         </div>
-        <div style={{ margin: 10}}>
-          <label htmlFor="FormControlInput2">Enter Notification Content:</label>
-          <input type="text" id="FormControlInput2" placeholder='Write something here...' required onChange={(e) => {setNotifContent(e.target.value)}} />
-        </div>
+        <Button variant="contained" onClick={CreateNotification}>Add Notification</Button>
+        <Button variant="contained" style={{ margin: "20px" }} >
+          <Link to="/listNotif" style={{ textDecoration: 'none', color: "white" }}>List all Notificaions</Link>
+        </Button>
+
       </div>
-
-      <button style={{ margin: 10, width: 200, height: 50, backgroundColor: '#2AB2FF', color: 'black', fontWeight: "bold", borderWidth: 2, borderColor: "black", borderRadius: 6 }} onClick={CreateNotification} >Create Notification</button>
-
-    </div>
+    </Box>
   );
 }
 

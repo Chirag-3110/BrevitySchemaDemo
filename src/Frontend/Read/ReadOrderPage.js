@@ -1,18 +1,23 @@
 import React from 'react';
-import { API } from 'aws-amplify';
-import * as queries from '../../graphql/queries';
+import Button from '@mui/material/Button';
+
+import ReadOrder from '../../Backend/APIS/OrderAPI/ReadOrder';
 export default function ReadOrderPage() {
     const listOrder = async () => {
-        const listOrder = await API.graphql({
-            query: queries.listOrders,
-            authMode: 'API_KEY'
-        });
-        console.log(listOrder);
+        try {
+            const ListOrder = await ReadOrder();
+            if (ListOrder) {
+                alert("List is fetched");
+                console.log(ListOrder);
+            }
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (
         <div className="App">
-            <button style={{ margin: 10, width: 200, height: 50, backgroundColor: '#2AB2FF', color: 'black', fontWeight: "bold", borderWidth: 2, borderColor: "black", borderRadius: 6 }} onClick={listOrder}>list Order</button>
+            <Button variant="contained" onClick={listOrder}>List All Order</Button>
         </div>
     );
 }

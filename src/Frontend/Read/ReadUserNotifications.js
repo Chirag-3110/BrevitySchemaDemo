@@ -1,14 +1,16 @@
 import React from 'react';
-import { API } from 'aws-amplify';
-import * as queries from '../../graphql/queries';
+import ListNotif from '../../Backend/APIS/NotificationAPI/ListNotif';
 export default function ReadUserNotifications() {
     const listNotif = async () => {
-        const listNotifData = await API.graphql({
-            query: queries.listUserNotifications,
-            authMode: 'API_KEY'
-        });
-        const notifica = listNotifData.data.listUserNotifications.items;
-        console.log(notifica);
+        try {
+            const NotifcationList = await ListNotif();
+            if (NotifcationList) {
+                alert("List is fetched");
+                console.log(NotifcationList);
+            }
+        } catch (error) {
+            console.log(error)
+        }
     };
 
     return (

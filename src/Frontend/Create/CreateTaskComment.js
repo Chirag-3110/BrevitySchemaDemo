@@ -4,6 +4,11 @@ import { API } from 'aws-amplify';
 import * as mutations from "../../graphql/mutations";
 import ReadTaskComment from '../Read/ReadTaskComment';
 import DeleteTaskComment from '../Delete/DeleteTaskComment';
+import AddComment from '../../Backend/APIS/CommentAPI/AddComment';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { Link } from "react-router-dom";
+import Button from '@mui/material/Button';
 
 function CreateComments() {
 
@@ -16,35 +21,47 @@ function CreateComments() {
   }
 
   const createComment = async () => {
-    const comment = await API.graphql({
-      query: mutations.createTaskCommentMapping, variables: { input: commentDetails },
-      authMode: 'API_KEY'
-    });
-    console.log(comment);
-    setCommentPath("");
-    setFilePath("");
-  };
+    try {
+      if (commentPath == null || filePath == null) {
+        console.log("enter all the fields")
+      }
+      let commentResponse = await AddComment(commentPath, filePath)
+      if (commentResponse)
+        console.log("Comment Craeted")
+    } catch (error) {
+      console.log({ message: 'Error creating Comment' });
+    }
+  }
   return (
-    <div className="App">
-      <h1>Welcome to CommentsPage</h1>
+    <Box
+      component="form"
+      sx={{
+        '& > :not(style)': { m: 1, width: '25ch' },
+      }}
+      noValidate
+      autoComplete="off"
+    >
+      <div className="App">
+        <h1>Welcome to CommentPage</h1>
 
-      <div>
-        <div style={{ margin: 10}}>
-          <label htmlFor="FormControlInput1">Enter Comment Path:</label>
-          <input type="text" id="FormControlInput1" placeholder="sample.pdf4522" autoFocus required onChange={(e) => {setCommentPath(e.target.value)}} />
+        <div>
+          <TextField style={{ margin: 10, width: 200 }} id="outlined-basic" label="Enter CommentPath" variant="outlined"
+            onChange={(commentPath) => setCommentPath(commentPath.target.value)}
+          />
+          <TextField style={{ margin: 10, width: 200 }} id="outlined-basic" label="Enter filePath" variant="outlined"
+            onChange={(filePath) => setFilePath(filePath.target.value)}
+          />
         </div>
-        <div style={{ margin: 10}}>
-          <label htmlFor="FormControlInput2">Enter File Path:</label>
-          <input type="text" id="FormControlInput2" placeholder="sample/pdf12" required onChange={(e) => {setFilePath(e.target.value)}} />
-        </div>
+        <Button style={{ margin: "20px" }} variant="contained" onClick={createComment}>Add Comment</Button>
+        <Button variant="contained" style={{ margin: "20px" }} >
+          <Link to="/listComments" style={{ textDecoration: 'none', color: "white" }}>List all Comment</Link>
+        </Button>
+        <Button variant="contained" style={{ margin: "20px" }} >
+          <Link to="/deleteComments" style={{ textDecoration: 'none', color: "white" }}>Delete Comment</Link>
+        </Button>
+
       </div>
-
-      <button style={{ margin: 10, width: 200, height: 50, backgroundColor: '#2AB2FF', color: 'black', fontWeight: "bold", borderWidth: 2, borderColor: "black", borderRadius: 6 }} onClick={createComment}>Create Comments</button>
-
-      <ReadTaskComment />
-      <DeleteTaskComment />
-
-    </div>
+    </Box>
   );
 }
 

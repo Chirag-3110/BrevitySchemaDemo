@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { API } from 'aws-amplify';
 import * as mutations from '../../graphql/mutations';
+import DeleteComment from '../../Backend/APIS/CommentAPI/DeleteComment';
 export default function DeleteTaskComment() {
     const [Id, setId] = useState("")
     const inputId = {
@@ -8,15 +9,14 @@ export default function DeleteTaskComment() {
     }
     const deleteComments = async () => {
         try {
-
-            const deleteComments = await API.graphql({
-                query: mutations.deleteTaskCommentMapping,
-                variables: { input: inputId },
-                authMode: 'API_KEY'
-            });
-            console.log(deleteComments)
+            if (Id == null) {
+                console.log("enter ID field")
+            }
+            let commentResponse = await DeleteComment(Id)
+            if (commentResponse)
+                console.log("Comment deleted")
         } catch (error) {
-            console.log("Error is ", error);
+            console.log({ message: 'Error deleting Comment' });
         }
 
     };
