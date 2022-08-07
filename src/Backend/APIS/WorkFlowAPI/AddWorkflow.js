@@ -1,5 +1,6 @@
 import {API} from 'aws-amplify';
 import * as muataions from '../../../graphql/mutations';
+import ErrorHandling from '../../ErrorHandling';
 const AddWorkflow=async(WorkFlowName,WorkFlowDesc,UserMail,workFlowJson,saveAsDraft)=>{
     try {
         let workflowInput={
@@ -10,15 +11,14 @@ const AddWorkflow=async(WorkFlowName,WorkFlowDesc,UserMail,workFlowJson,saveAsDr
             userOrganizationWorkFlowId: UserMail
         }
         if(WorkFlowName==null||WorkFlowDesc==null||UserMail==null)
-            throw "Enter all fileds";
+            throw "Enter all fields";
         const WorkFLowResponse=await API.graphql({
             query:muataions.createWorkflow,
             variables: {input: workflowInput},
         });
-        // console.log(workflowInput)
         return WorkFLowResponse;
     } catch (error) {
-        console.log(error);
+       ErrorHandling(error,"Workflow");
     }
 }
 export default AddWorkflow;

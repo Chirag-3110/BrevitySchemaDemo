@@ -24,7 +24,7 @@ function CreateNotificaion() {
       setUserNotifId("");
       setNotifContent("");
     } catch (error) {
-      console.log({ message: 'Error creating notification' });
+      console.log(error);
     }
   }
 

@@ -1,5 +1,6 @@
 import {API} from 'aws-amplify';
 import * as queries from '../../../graphql/queries';
+import ErrorHandling from '../../ErrorHandling';
 const GetWorkFlow=async(workflowid)=>{
     try {
         const WorkFlowRespone=await API.graphql({
@@ -10,7 +11,7 @@ const GetWorkFlow=async(workflowid)=>{
         })
         return WorkFlowRespone;
     } catch (error) {
-        console.log(error);
+       ErrorHandling(error);
     }
 }
 export default GetWorkFlow;
