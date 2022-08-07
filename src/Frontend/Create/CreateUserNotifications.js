@@ -20,7 +20,7 @@ function CreateNotificaion() {
       if (notifResponse)
         console.log("notification Craeted")
     } catch (error) {
-      console.log({ message: 'Error creating notification' });
+      console.log(error);
     }
   }
 

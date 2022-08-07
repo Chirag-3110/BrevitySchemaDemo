@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Switch from '@mui/material/Switch';
 import { Link } from "react-router-dom";
 import AddWorkflow from '../../Backend/APIS/WorkFlowAPI/AddWorkflow';
+import getUser from '../../Backend/APIS/UserTableAPI/GetUser';
 const label = { inputProps: { 'aria-label': 'Switch demo' } };
 function CreateWorkflow() {
   const [workflowname,setWorkflowName]=useState(null);
@@ -22,7 +23,7 @@ function CreateWorkflow() {
       if(workFlowResponse)
         alert("Workflow created");
     } catch (error) {
-      console.log(error)
+      alert(error)
     }
   }
 

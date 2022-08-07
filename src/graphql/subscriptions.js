@@ -21,23 +21,7 @@ export const onCreateUser = /* GraphQL */ `
       name
       isAdmin
       phone
-      supervisor {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      supervisor
       organization
       isApproved
       isEmailApproved
@@ -68,23 +52,7 @@ export const onUpdateUser = /* GraphQL */ `
       name
       isAdmin
       phone
-      supervisor {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      supervisor
       organization
       isApproved
       isEmailApproved
@@ -115,23 +83,7 @@ export const onDeleteUser = /* GraphQL */ `
       name
       isAdmin
       phone
-      supervisor {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      supervisor
       organization
       isApproved
       isEmailApproved
@@ -165,41 +117,10 @@ export const onCreateOrder = /* GraphQL */ `
       createdDate
       OrderJSON
       dueDate
-      createdBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      createdBy
       lastEditedOn
-      lastEditedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      lastEditedBy
+      createdAt
       tasks {
         nextToken
       }
@@ -212,11 +133,12 @@ export const onCreateOrder = /* GraphQL */ `
         WorkFlowJSON
         WorkFlowDescription
         SaveAsDraft
+        CreatedBy
+        OwnedBy
         createdAt
         updatedAt
         userOrganizationWorkFlowId
       }
-      createdAt
       updatedAt
       workflowWorkflowOrdersId
     }
@@ -232,41 +154,10 @@ export const onUpdateOrder = /* GraphQL */ `
       createdDate
       OrderJSON
       dueDate
-      createdBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      createdBy
       lastEditedOn
-      lastEditedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      lastEditedBy
+      createdAt
       tasks {
         nextToken
       }
@@ -279,11 +170,12 @@ export const onUpdateOrder = /* GraphQL */ `
         WorkFlowJSON
         WorkFlowDescription
         SaveAsDraft
+        CreatedBy
+        OwnedBy
         createdAt
         updatedAt
         userOrganizationWorkFlowId
       }
-      createdAt
       updatedAt
       workflowWorkflowOrdersId
     }
@@ -299,41 +191,10 @@ export const onDeleteOrder = /* GraphQL */ `
       createdDate
       OrderJSON
       dueDate
-      createdBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      createdBy
       lastEditedOn
-      lastEditedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      lastEditedBy
+      createdAt
       tasks {
         nextToken
       }
@@ -346,11 +207,12 @@ export const onDeleteOrder = /* GraphQL */ `
         WorkFlowJSON
         WorkFlowDescription
         SaveAsDraft
+        CreatedBy
+        OwnedBy
         createdAt
         updatedAt
         userOrganizationWorkFlowId
       }
-      createdAt
       updatedAt
       workflowWorkflowOrdersId
     }
@@ -363,47 +225,20 @@ export const onCreateOrderTask = /* GraphQL */ `
       taskStatus
       TaskName
       NextTaskName
-      TaskAssignedTo {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      TaskAssignedTo
       isFirstUser
       TaskDescription
       UserFilePathList
       AssignedTimeStamp
       TaskCompletionTime
       DueDate
-      orderTasksId {
-        id
-        orderName
-        description
-        currentStatus
-        createdDate
-        OrderJSON
-        dueDate
-        lastEditedOn
-        createdAt
-        updatedAt
-        workflowWorkflowOrdersId
-      }
+      orderTasksId
       InformationTo {
         email
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -428,47 +263,20 @@ export const onUpdateOrderTask = /* GraphQL */ `
       taskStatus
       TaskName
       NextTaskName
-      TaskAssignedTo {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      TaskAssignedTo
       isFirstUser
       TaskDescription
       UserFilePathList
       AssignedTimeStamp
       TaskCompletionTime
       DueDate
-      orderTasksId {
-        id
-        orderName
-        description
-        currentStatus
-        createdDate
-        OrderJSON
-        dueDate
-        lastEditedOn
-        createdAt
-        updatedAt
-        workflowWorkflowOrdersId
-      }
+      orderTasksId
       InformationTo {
         email
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -493,47 +301,20 @@ export const onDeleteOrderTask = /* GraphQL */ `
       taskStatus
       TaskName
       NextTaskName
-      TaskAssignedTo {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      TaskAssignedTo
       isFirstUser
       TaskDescription
       UserFilePathList
       AssignedTimeStamp
       TaskCompletionTime
       DueDate
-      orderTasksId {
-        id
-        orderName
-        description
-        currentStatus
-        createdDate
-        OrderJSON
-        dueDate
-        lastEditedOn
-        createdAt
-        updatedAt
-        workflowWorkflowOrdersId
-      }
+      orderTasksId
       InformationTo {
         email
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -565,40 +346,8 @@ export const onCreateWorkflow = /* GraphQL */ `
       WorkFlowJSON
       WorkFlowDescription
       SaveAsDraft
-      CreatedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
-      OwnedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      CreatedBy
+      OwnedBy
       createdAt
       updatedAt
       userOrganizationWorkFlowId
@@ -619,40 +368,8 @@ export const onUpdateWorkflow = /* GraphQL */ `
       WorkFlowJSON
       WorkFlowDescription
       SaveAsDraft
-      CreatedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
-      OwnedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      CreatedBy
+      OwnedBy
       createdAt
       updatedAt
       userOrganizationWorkFlowId
@@ -673,40 +390,8 @@ export const onDeleteWorkflow = /* GraphQL */ `
       WorkFlowJSON
       WorkFlowDescription
       SaveAsDraft
-      CreatedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
-      OwnedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      CreatedBy
+      OwnedBy
       createdAt
       updatedAt
       userOrganizationWorkFlowId
@@ -721,16 +406,7 @@ export const onCreateWorkflowDefinition = /* GraphQL */ `
       NextNodeName
       Description
       isRootNode
-      WorkFlowName {
-        id
-        workflowname
-        WorkFlowJSON
-        WorkFlowDescription
-        SaveAsDraft
-        createdAt
-        updatedAt
-        userOrganizationWorkFlowId
-      }
+      WorkFlowName
       createdAt
       updatedAt
       workflowWorkflowdefinitionsId
@@ -745,16 +421,7 @@ export const onUpdateWorkflowDefinition = /* GraphQL */ `
       NextNodeName
       Description
       isRootNode
-      WorkFlowName {
-        id
-        workflowname
-        WorkFlowJSON
-        WorkFlowDescription
-        SaveAsDraft
-        createdAt
-        updatedAt
-        userOrganizationWorkFlowId
-      }
+      WorkFlowName
       createdAt
       updatedAt
       workflowWorkflowdefinitionsId
@@ -769,16 +436,7 @@ export const onDeleteWorkflowDefinition = /* GraphQL */ `
       NextNodeName
       Description
       isRootNode
-      WorkFlowName {
-        id
-        workflowname
-        WorkFlowJSON
-        WorkFlowDescription
-        SaveAsDraft
-        createdAt
-        updatedAt
-        userOrganizationWorkFlowId
-      }
+      WorkFlowName
       createdAt
       updatedAt
       workflowWorkflowdefinitionsId
@@ -838,7 +496,9 @@ export const onCreateTaskCommentMapping = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId
@@ -869,7 +529,9 @@ export const onUpdateTaskCommentMapping = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId
@@ -900,7 +562,9 @@ export const onDeleteTaskCommentMapping = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId
@@ -928,6 +592,7 @@ export const onCreateUserOrderMapping = /* GraphQL */ `
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -948,7 +613,9 @@ export const onCreateUserOrderMapping = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId
@@ -969,6 +636,7 @@ export const onUpdateUserOrderMapping = /* GraphQL */ `
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -989,7 +657,9 @@ export const onUpdateUserOrderMapping = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId
@@ -1010,6 +680,7 @@ export const onDeleteUserOrderMapping = /* GraphQL */ `
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -1030,7 +701,9 @@ export const onDeleteUserOrderMapping = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId

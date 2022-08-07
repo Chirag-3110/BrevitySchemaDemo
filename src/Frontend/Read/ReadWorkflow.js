@@ -4,11 +4,11 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import GetWorkFlow from '../../Backend/APIS/WorkFlowAPI/GetWorkFlow';
 import ListWorkflow from '../../Backend/APIS/WorkFlowAPI/ListWorkFlow';
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
-
+import OrganizationWorkflow from '../../Backend/APIS/WorkFlowAPI/OrganizationWorkFlow';
+const label = { inputProps: { 'aria-label': 'Switch demo' } };          
 function ReadWorkflow() {
   const [workflowID,setWorkflowID]=useState(null);
-
+  const [Organization,setOrganization]=useState(null);
   const getWorkFlow=async()=>{
     try {
       if(workflowID==null)
@@ -33,6 +33,17 @@ function ReadWorkflow() {
         console.log(error)
       }
   }
+  const organiationWorkFlow=async()=>{
+    try {
+      const organizationworkflowList=await OrganizationWorkflow(Organization);
+      if(organizationworkflowList){
+        alert("List is fetched");
+        console.log(organizationworkflowList);
+      }
+      } catch (error) {
+        console.log(error)
+      }
+  }
   return (
     <div className="App">
       <h1>Query WorkFlow</h1>
@@ -48,9 +59,13 @@ function ReadWorkflow() {
           <TextField style={{margin:10,width:200}} id="outlined-basic" label="Workflow ID" variant="outlined" 
             onChange={(id)=>setWorkflowID(id.target.value)}
           />
+          <TextField style={{margin:10,width:200}} id="outlined-basic" label="Organization Name" variant="outlined" 
+            onChange={(Organization)=>setOrganization(Organization.target.value)}
+          />
         </div>
         <Button variant="contained" onClick={getWorkFlow}>Get WorkFlow</Button>
         <Button variant="contained" onClick={listWorkFlow}>List WorkFlow</Button>
+        <Button variant="contained" onClick={organiationWorkFlow}>Organiation WorkFlow</Button>
       </Box>
     </div>
   );
