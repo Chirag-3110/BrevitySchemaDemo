@@ -9,7 +9,8 @@ export default function ReadTaskComment() {
                 alert("List is fetched");
                 console.log(ListAllComment);
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.log(error)
         }
     };

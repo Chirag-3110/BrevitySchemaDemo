@@ -1,9 +1,11 @@
 import { Auth } from 'aws-amplify';
-const GetAuthedUser=async()=>{
+
+const GetAuthedUser = async () => {
     try {
-        let userResponse=await Auth.currentAuthenticatedUser();
+        let userResponse = await Auth.currentAuthenticatedUser();
         return userResponse;
-    } catch (error) {
+    } 
+    catch (error) {
         console.log(error);
     }
 }

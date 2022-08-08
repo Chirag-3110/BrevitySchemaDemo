@@ -1,13 +1,14 @@
 import React from 'react';
 import Button from '@mui/material/Button';
-
 import ReadOrder from '../../Backend/APIS/OrderAPI/ReadOrder';
+
 export default function ReadOrderPage() {
+    
     const listOrder = async () => {
         try {
+            // console.log('in frontend');
             const ListOrder = await ReadOrder();
             if (ListOrder) {
-                alert("List is fetched");
                 console.log(ListOrder);
             }
         } catch (error) {

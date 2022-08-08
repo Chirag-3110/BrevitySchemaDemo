@@ -1,22 +1,26 @@
 import { API } from 'aws-amplify';
+
 import * as mutations from '../../../graphql/mutations';
+import ErrorHandling from '../../ErrorHandling';
+
 const AddComment = async (commentPath, filePath) => {
     try {
         const commentDetails = {
             commentPath: commentPath,
             filePath: filePath
         }
-        if (commentPath == null || filePath == null)
-            console.log("enter all fields")
+        
         const comment = await API.graphql({
-            query: mutations.createTaskCommentMapping, variables: { input: commentDetails },
-            authMode: 'API_KEY'
+            query: mutations.createTaskCommentMapping, 
+            authMode: 'API_KEY',
+            variables: {
+                input: commentDetails 
+            }
         });
-        console.log(comment)
-
+        
         return comment;
     } catch (error) {
-        console.log(error);
+        ErrorHandling(error, 'Comment');
     }
 }
 export default AddComment;

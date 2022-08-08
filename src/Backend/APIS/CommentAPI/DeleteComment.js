@@ -1,22 +1,25 @@
 import { API } from 'aws-amplify';
+
 import * as mutations from '../../../graphql/mutations';
+import ErrorHandling from '../../ErrorHandling';
+
 const DeleteComment = async (CommentPath) => {
     try {
         const inputId = {
             commentPath: CommentPath
         }
-        if (CommentPath == null)
-            console.log("enter all fields")
+
         const delComment = await API.graphql({
             query: mutations.deleteTaskCommentMapping,
-            variables: { input: inputId },
-            authMode: 'API_KEY'
+            authMode: 'API_KEY',
+            variables: {
+                input: inputId
+            },
         });
-        console.log(delComment)
 
         return delComment;
     } catch (error) {
-        console.log(error);
+        ErrorHandling(error, "Comment");
     }
 }
 export default DeleteComment;

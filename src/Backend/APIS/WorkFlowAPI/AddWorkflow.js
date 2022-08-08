@@ -1,24 +1,30 @@
-import {API} from 'aws-amplify';
+import { API } from 'aws-amplify';
+
 import * as muataions from '../../../graphql/mutations';
 import ErrorHandling from '../../ErrorHandling';
-const AddWorkflow=async(WorkFlowName,WorkFlowDesc,UserMail,workFlowJson,saveAsDraft)=>{
+
+const AddWorkflow = async (WorkFlowName, WorkFlowDesc, UserMail, workFlowJson, saveAsDraft) => {
     try {
-        let workflowInput={
+        let workflowInput = {
             workflowname: WorkFlowName,
             WorkFlowJSON: workFlowJson,
             WorkFlowDescription: WorkFlowDesc,
             SaveAsDraft: saveAsDraft,
             userOrganizationWorkFlowId: UserMail
         }
-        if(WorkFlowName==null||WorkFlowDesc==null||UserMail==null)
-            throw "Enter all fields";
-        const WorkFLowResponse=await API.graphql({
-            query:muataions.createWorkflow,
-            variables: {input: workflowInput},
+
+        const WorkFlowResponse = await API.graphql({
+            query: muataions.createWorkflow,
+            authMode: 'API_KEY',
+            variables: {
+                input: workflowInput
+            },
         });
-        return WorkFLowResponse;
-    } catch (error) {
-       ErrorHandling(error,"Workflow");
+
+        return WorkFlowResponse;
+    }
+    catch (error) {
+        ErrorHandling(error, "Workflow");
     }
 }
 export default AddWorkflow;

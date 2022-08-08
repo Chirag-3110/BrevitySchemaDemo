@@ -1,5 +1,7 @@
 import { API } from 'aws-amplify';
+
 import * as queries from '../../../graphql/queries';
+import ErrorHandling from '../../ErrorHandling';
 
 const ListUserByOrg = async (organization) => {
     try {
@@ -20,9 +22,9 @@ const ListUserByOrg = async (organization) => {
         }))
 
         return reqUserDetails;
-
-    } catch (error) {
-        console.log(error);
+    } 
+    catch (error) {
+        ErrorHandling(error, 'User');
     }
     
 };

@@ -106,7 +106,7 @@ export const getOrder = /* GraphQL */ `
     }
   }
 `;
-export const listOrders = /* GraphQL */ `
+export const listOrders = /*GraphQL*/ `
   query ListOrders(
     $id: ID
     $filter: ModelOrderFilterInput

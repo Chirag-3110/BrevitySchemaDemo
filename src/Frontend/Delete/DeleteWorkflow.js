@@ -1,25 +1,28 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import RemoveWorkFlow from '../../Backend/APIS/WorkFlowAPI/RemoveWorkFlow';
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
 
 function DeleteWorkFlow() {
-  const [workflowID,setWorkflowID]=useState(null);
+  const [workflowID, setWorkflowID] = useState(null);
 
-  const deleteWorkFlow=async()=>{
+  const deleteWorkFlow = async () => {
     try {
-      if(workflowID==null)
+      if (workflowID == null)
         throw "Enter ID";
-      let deletedWorkFlow=await RemoveWorkFlow(workflowID);
-      if(deletedWorkFlow){
+
+      let deletedWorkFlow = await RemoveWorkFlow(workflowID);
+
+      if (deletedWorkFlow) {
         alert("workflow deleted");
       }
-    } catch (error) {
-      console.log(error)
+    }
+    catch (error) {
+      alert(error);
     }
   }
+
   return (
     <div className="App">
       <h1>Delete WorkFlow</h1>
@@ -32,8 +35,8 @@ function DeleteWorkFlow() {
         autoComplete="off"
       >
         <div>
-          <TextField style={{margin:10,width:200}} id="outlined-basic" label="Workflow ID" variant="outlined" 
-            onChange={(id)=>setWorkflowID(id.target.value)}
+          <TextField style={{ margin: 10, width: 200 }} id="outlined-basic" label="Workflow ID" variant="outlined"
+            onChange={(id) => setWorkflowID(id.target.value)}
           />
         </div>
         <Button variant="contained" onClick={deleteWorkFlow}>Delete WorkFlow</Button>
