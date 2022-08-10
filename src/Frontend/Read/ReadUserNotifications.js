@@ -1,6 +1,8 @@
 import React from 'react';
 import ListNotif from '../../Backend/APIS/NotificationAPI/ListNotif';
+
 export default function ReadUserNotifications() {
+    
     const listNotif = async () => {
         try {
             const NotifcationList = await ListNotif();
@@ -8,8 +10,9 @@ export default function ReadUserNotifications() {
                 alert("List is fetched");
                 console.log(NotifcationList);
             }
-        } catch (error) {
-            console.log(error)
+        } 
+        catch (error) {
+            console.log(error);
         }
     };
 

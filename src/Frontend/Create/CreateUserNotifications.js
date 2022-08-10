@@ -1,24 +1,34 @@
 import React from 'react';
 import { useState } from 'react';
-import AddNotif from '../../Backend/APIS/NotificationAPI/AddNotif';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import { Link } from "react-router-dom";
 import Button from '@mui/material/Button';
+
+import AddNotif from '../../Backend/APIS/NotificationAPI/AddNotif';
+
 function CreateNotificaion() {
 
   const [userNotifId, setUserNotifId] = useState("");
   const [notifContent, setNotifContent] = useState("");
+  
   const CreateNotification = async () => {
     try {
-      if (userNotifId == null || notifContent == null) {
-        console.log("enter all the fields")
+      if (userNotifId === "") {
+        alert("Enter Notification User Id");
+      } 
+      else if (notifContent === "") {
+        alert("Enter Notification Content");
+      } 
+      else {
+        let notifResponse = await AddNotif(userNotifId, notifContent)
+        
+        if (notifResponse)
+          console.log("notification Craeted")
       }
-      let notifResponse = await AddNotif(userNotifId, notifContent)
-      if (notifResponse)
-        console.log("notification Craeted")
-    } catch (error) {
-      console.log({ message: 'Error creating notification' });
+    } 
+    catch (error) {
+      console.log(error);
     }
   }
 

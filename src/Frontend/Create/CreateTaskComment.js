@@ -1,9 +1,5 @@
 import React, { useState } from 'react';
-import { API } from 'aws-amplify';
 
-import * as mutations from "../../graphql/mutations";
-import ReadTaskComment from '../Read/ReadTaskComment';
-import DeleteTaskComment from '../Delete/DeleteTaskComment';
 import AddComment from '../../Backend/APIS/CommentAPI/AddComment';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
@@ -15,23 +11,25 @@ function CreateComments() {
   const [commentPath, setCommentPath] = useState("");
   const [filePath, setFilePath] = useState("");
 
-  const commentDetails = {
-    commentPath: commentPath,
-    filePath: filePath
-  }
-
   const createComment = async () => {
     try {
-      if (commentPath == null || filePath == null) {
-        console.log("enter all the fields")
+      if (commentPath === "") {
+        alert ('Enter Comment Path');
+      } 
+      else if(filePath === "") {
+        alert ('Enter File Path');
+      } 
+      else {
+        let commentResponse = await AddComment(commentPath, filePath)
+        
+        if (commentResponse)
+          console.log(commentResponse);
       }
-      let commentResponse = await AddComment(commentPath, filePath)
-      if (commentResponse)
-        console.log("Comment Craeted")
     } catch (error) {
       console.log({ message: 'Error creating Comment' });
     }
   }
+  
   return (
     <Box
       component="form"
@@ -52,7 +50,9 @@ function CreateComments() {
             onChange={(filePath) => setFilePath(filePath.target.value)}
           />
         </div>
+        
         <Button style={{ margin: "20px" }} variant="contained" onClick={createComment}>Add Comment</Button>
+
         <Button variant="contained" style={{ margin: "20px" }} >
           <Link to="/listComments" style={{ textDecoration: 'none', color: "white" }}>List all Comment</Link>
         </Button>

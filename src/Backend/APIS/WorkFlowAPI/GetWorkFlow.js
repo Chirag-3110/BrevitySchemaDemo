@@ -1,16 +1,21 @@
-import {API} from 'aws-amplify';
+import { API } from 'aws-amplify';
+
 import * as queries from '../../../graphql/queries';
-const GetWorkFlow=async(workflowid)=>{
+import ErrorHandling from '../../ErrorHandling';
+
+const GetWorkFlow = async (workflowid) => {
     try {
-        const WorkFlowRespone=await API.graphql({
-            query:queries.getWorkflow,
-            variables:{
-                id:workflowid
+        const WorkFlowRespone = await API.graphql({
+            query: queries.getWorkflow,
+            variables: {
+                id: workflowid
             }
         })
+        
         return WorkFlowRespone;
-    } catch (error) {
-        console.log(error);
+    } 
+    catch (error) {
+        ErrorHandling(error);
     }
 }
 export default GetWorkFlow;

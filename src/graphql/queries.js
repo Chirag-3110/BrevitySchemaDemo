@@ -8,23 +8,7 @@ export const getUser = /* GraphQL */ `
       name
       isAdmin
       phone
-      supervisor {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      supervisor
       organization
       isApproved
       isEmailApproved
@@ -68,6 +52,7 @@ export const listUsers = /* GraphQL */ `
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -94,41 +79,10 @@ export const getOrder = /* GraphQL */ `
       createdDate
       OrderJSON
       dueDate
-      createdBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      createdBy
       lastEditedOn
-      lastEditedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      lastEditedBy
+      createdAt
       tasks {
         nextToken
       }
@@ -141,17 +95,18 @@ export const getOrder = /* GraphQL */ `
         WorkFlowJSON
         WorkFlowDescription
         SaveAsDraft
+        CreatedBy
+        OwnedBy
         createdAt
         updatedAt
         userOrganizationWorkFlowId
       }
-      createdAt
       updatedAt
       workflowWorkflowOrdersId
     }
   }
 `;
-export const listOrders = /* GraphQL */ `
+export const listOrders = /*GraphQL*/ `
   query ListOrders(
     $id: ID
     $filter: ModelOrderFilterInput
@@ -174,7 +129,9 @@ export const listOrders = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId
@@ -190,47 +147,20 @@ export const getOrderTask = /* GraphQL */ `
       taskStatus
       TaskName
       NextTaskName
-      TaskAssignedTo {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      TaskAssignedTo
       isFirstUser
       TaskDescription
       UserFilePathList
       AssignedTimeStamp
       TaskCompletionTime
       DueDate
-      orderTasksId {
-        id
-        orderName
-        description
-        currentStatus
-        createdDate
-        OrderJSON
-        dueDate
-        lastEditedOn
-        createdAt
-        updatedAt
-        workflowWorkflowOrdersId
-      }
+      orderTasksId
       InformationTo {
         email
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -268,12 +198,14 @@ export const listOrderTasks = /* GraphQL */ `
         taskStatus
         TaskName
         NextTaskName
+        TaskAssignedTo
         isFirstUser
         TaskDescription
         UserFilePathList
         AssignedTimeStamp
         TaskCompletionTime
         DueDate
+        orderTasksId
         createdAt
         updatedAt
       }
@@ -295,40 +227,8 @@ export const getWorkflow = /* GraphQL */ `
       WorkFlowJSON
       WorkFlowDescription
       SaveAsDraft
-      CreatedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
-      OwnedBy {
-        email
-        name
-        isAdmin
-        phone
-        organization
-        isApproved
-        isEmailApproved
-        isPhoneVerified
-        isGooleSignIn
-        isFacebookSignIn
-        isGeneralAuthSignIn
-        Designation
-        imageUrl
-        createdAt
-        updatedAt
-      }
+      CreatedBy
+      OwnedBy
       createdAt
       updatedAt
       userOrganizationWorkFlowId
@@ -356,6 +256,8 @@ export const listWorkflows = /* GraphQL */ `
         WorkFlowJSON
         WorkFlowDescription
         SaveAsDraft
+        CreatedBy
+        OwnedBy
         createdAt
         updatedAt
         userOrganizationWorkFlowId
@@ -372,16 +274,7 @@ export const getWorkflowDefinition = /* GraphQL */ `
       NextNodeName
       Description
       isRootNode
-      WorkFlowName {
-        id
-        workflowname
-        WorkFlowJSON
-        WorkFlowDescription
-        SaveAsDraft
-        createdAt
-        updatedAt
-        userOrganizationWorkFlowId
-      }
+      WorkFlowName
       createdAt
       updatedAt
       workflowWorkflowdefinitionsId
@@ -405,6 +298,7 @@ export const listWorkflowDefinitions = /* GraphQL */ `
         NextNodeName
         Description
         isRootNode
+        WorkFlowName
         createdAt
         updatedAt
         workflowWorkflowdefinitionsId
@@ -464,7 +358,9 @@ export const getTaskCommentMapping = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId
@@ -518,6 +414,7 @@ export const getUserOrderMapping = /* GraphQL */ `
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -538,7 +435,9 @@ export const getUserOrderMapping = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId
@@ -570,6 +469,43 @@ export const listUserOrderMappings = /* GraphQL */ `
     }
   }
 `;
+export const userBySuperWisedID = /* GraphQL */ `
+  query UserBySuperWisedID(
+    $supervisor: String!
+    $sortDirection: ModelSortDirection
+    $filter: ModelUserFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    userBySuperWisedID(
+      supervisor: $supervisor
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        email
+        name
+        isAdmin
+        phone
+        supervisor
+        organization
+        isApproved
+        isEmailApproved
+        isPhoneVerified
+        isGooleSignIn
+        isFacebookSignIn
+        isGeneralAuthSignIn
+        Designation
+        imageUrl
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const usersByOrganization = /* GraphQL */ `
   query UsersByOrganization(
     $organization: String!
@@ -590,6 +526,7 @@ export const usersByOrganization = /* GraphQL */ `
         name
         isAdmin
         phone
+        supervisor
         organization
         isApproved
         isEmailApproved
@@ -606,16 +543,18 @@ export const usersByOrganization = /* GraphQL */ `
     }
   }
 `;
-export const orderByOrderID = /* GraphQL */ `
-  query OrderByOrderID(
+export const orderByOrderName = /* GraphQL */ `
+  query OrderByOrderName(
     $orderName: String!
+    $createdAt: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelOrderFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    orderByOrderID(
+    orderByOrderName(
       orderName: $orderName
+      createdAt: $createdAt
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -629,7 +568,9 @@ export const orderByOrderID = /* GraphQL */ `
         createdDate
         OrderJSON
         dueDate
+        createdBy
         lastEditedOn
+        lastEditedBy
         createdAt
         updatedAt
         workflowWorkflowOrdersId
@@ -638,9 +579,82 @@ export const orderByOrderID = /* GraphQL */ `
     }
   }
 `;
+export const taskByAsssignedUSer = /* GraphQL */ `
+  query TaskByAsssignedUSer(
+    $TaskAssignedTo: String!
+    $TaskName: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelOrderTaskFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    taskByAsssignedUSer(
+      TaskAssignedTo: $TaskAssignedTo
+      TaskName: $TaskName
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        taskStatus
+        TaskName
+        NextTaskName
+        TaskAssignedTo
+        isFirstUser
+        TaskDescription
+        UserFilePathList
+        AssignedTimeStamp
+        TaskCompletionTime
+        DueDate
+        orderTasksId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const taskByorderTasksId = /* GraphQL */ `
+  query TaskByorderTasksId(
+    $orderTasksId: ID!
+    $sortDirection: ModelSortDirection
+    $filter: ModelOrderTaskFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    taskByorderTasksId(
+      orderTasksId: $orderTasksId
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        taskStatus
+        TaskName
+        NextTaskName
+        TaskAssignedTo
+        isFirstUser
+        TaskDescription
+        UserFilePathList
+        AssignedTimeStamp
+        TaskCompletionTime
+        DueDate
+        orderTasksId
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
 export const nodeByNodeandWorkFlowName = /* GraphQL */ `
   query NodeByNodeandWorkFlowName(
     $NodeName: String!
+    $WorkFlowName: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelWorkflowDefinitionFilterInput
     $limit: Int
@@ -648,6 +662,7 @@ export const nodeByNodeandWorkFlowName = /* GraphQL */ `
   ) {
     nodeByNodeandWorkFlowName(
       NodeName: $NodeName
+      WorkFlowName: $WorkFlowName
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -659,6 +674,7 @@ export const nodeByNodeandWorkFlowName = /* GraphQL */ `
         NextNodeName
         Description
         isRootNode
+        WorkFlowName
         createdAt
         updatedAt
         workflowWorkflowdefinitionsId
@@ -667,16 +683,18 @@ export const nodeByNodeandWorkFlowName = /* GraphQL */ `
     }
   }
 `;
-export const notificatinoByUser = /* GraphQL */ `
-  query NotificatinoByUser(
+export const notificationByUser = /* GraphQL */ `
+  query NotificationByUser(
     $userNotificationsId: ID!
+    $NotificationTime: ModelStringKeyConditionInput
     $sortDirection: ModelSortDirection
     $filter: ModelUserNotificationsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    notificatinoByUser(
+    notificationByUser(
       userNotificationsId: $userNotificationsId
+      NotificationTime: $NotificationTime
       sortDirection: $sortDirection
       filter: $filter
       limit: $limit
@@ -695,15 +713,15 @@ export const notificatinoByUser = /* GraphQL */ `
     }
   }
 `;
-export const userByNotifStatus = /* GraphQL */ `
-  query UserByNotifStatus(
+export const userByNotifcationStatus = /* GraphQL */ `
+  query UserByNotifcationStatus(
     $NotificationStatus: NotifStatusEnum!
     $sortDirection: ModelSortDirection
     $filter: ModelUserNotificationsFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    userByNotifStatus(
+    userByNotifcationStatus(
       NotificationStatus: $NotificationStatus
       sortDirection: $sortDirection
       filter: $filter

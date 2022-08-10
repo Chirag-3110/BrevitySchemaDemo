@@ -1,6 +1,6 @@
 import React from 'react';
-import { API } from 'aws-amplify';
 import ListComment from '../../Backend/APIS/CommentAPI/ListComment';
+
 export default function ReadTaskComment() {
     const listComments = async () => {
         try {
@@ -9,7 +9,8 @@ export default function ReadTaskComment() {
                 alert("List is fetched");
                 console.log(ListAllComment);
             }
-        } catch (error) {
+        } 
+        catch (error) {
             console.log(error)
         }
     };
