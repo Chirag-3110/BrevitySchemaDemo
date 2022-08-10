@@ -18,6 +18,7 @@ import ReadOrderPage from './Frontend/Read/ReadOrderPage';
 import ReadTaskComment from './Frontend/Read/ReadTaskComment';
 import ReadUserByOrg from './Frontend/Read/ReadUserByOrg';
 import ReadUserNotifications from './Frontend/Read/ReadUserNotifications';
+import ReadOrderTaskPage from './Frontend/Read/ReadOrderTaskPage';
 
 import UpdateWorkFlow from './Frontend/Update/UpdateWorkflow';
 
@@ -35,14 +36,15 @@ function App() {
         <Route exact path="/order" element={<CreateOrder />} />
         <Route exact path="/ReadOrder" element={<ReadOrderPage />} />
         <Route exact path="/ordertask" element={<CreateOrderTask />} />
-        
+        <Route exact path="/ReadOrderTaskPage" element={<ReadOrderTaskPage />} />
+
         <Route exact path="/comments" element={<CreateComments />} />
         <Route exact path="/listcomments" element={<ReadTaskComment />} />
         <Route exact path="/deleteComments" element={<DeleteTaskComment />} />
-        
+
         <Route exact path="/notification" element={<CreateNotificaion />} />
         <Route exact path="/listNotif" element={<ReadUserNotifications />} />
-        
+
         <Route exact path="/workflow" element={<CreateWorkflow />} />
         <Route exact path="/workflowdefinition" element={<CreateWorkFlowDefintion />} />
         <Route exact path="/readworkflow" element={<ReadWorkflow />} />

@@ -4,14 +4,14 @@ import ErrorHandling from '../../ErrorHandling';
 
 const ReadOrder = async () => {
     try {
-        
+
         const listOrder = await API.graphql({
             query: queries.listOrders,
-            authMode: 'API_KEY'
+            // authMode: 'API_KEY'
         });
-
+        console.log(listOrder)
         return listOrder.data.listOrders.items;
-    } 
+    }
     catch (error) {
         ErrorHandling(error, 'Order');
     }
