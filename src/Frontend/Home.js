@@ -34,6 +34,10 @@ function Home() {
                     style={{ margin: 10, width: 400, height: 50, backgroundColor: '#2AB2FF', color: 'black', fontWeight: "bold", borderWidth: 2, borderColor: "black", borderRadius: 6 }}>
                     <Link to="/workflowdefinition" style={{ textDecoration: 'none', color: "black" }}>WorkflowDefinition Part</Link>
                 </button>
+                <button
+                    style={{ margin: 10, width: 400, height: 50, backgroundColor: '#2AB2FF', color: 'black', fontWeight: "bold", borderWidth: 2, borderColor: "black", borderRadius: 6 }}>
+                    <Link to="/downloadupload" style={{ textDecoration: 'none', color: "black" }}>Download and upload s3</Link>
+                </button>
             </div>
         </div>
     );

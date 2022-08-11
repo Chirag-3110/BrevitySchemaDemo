@@ -6,12 +6,14 @@ import { BrowserRouter } from "react-router-dom";
 import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify';
 import awsExports from './aws-exports';
+import Url from "./Backend/APIS/Download/Downloadsiles3"
 Amplify.configure(awsExports);
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <App />
+      {/* <Url /> */}
     </BrowserRouter>
   </React.StrictMode>
 );
