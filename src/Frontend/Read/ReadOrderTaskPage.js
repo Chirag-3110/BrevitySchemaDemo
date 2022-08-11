@@ -6,7 +6,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import fetchorderfile from '../../Backend/APIS/OrderTaskAPI/ReadFile'
 import { fetchdata } from '../../Backend/APIS/OrderTaskAPI/ReadFile'
-
+import DeleteFile from '../../Backend/APIS/OrderTaskAPI/DeleteFile'
 function ReadOrderTaskPage() {
     const [id, setId] = useState(null)
     const [filelist, setfilelist] = useState([]);
@@ -56,6 +56,7 @@ function ReadOrderTaskPage() {
                                         onClick={() => fetchdata(files)}
                                         primary={files}
                                     />
+                                    <button onClick={() => DeleteFile(filelist.id)}>Delete</button>
                                 </ListItem>
                             ))}
                         </>
