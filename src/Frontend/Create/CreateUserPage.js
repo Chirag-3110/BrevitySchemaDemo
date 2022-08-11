@@ -13,6 +13,9 @@ function CreateUser() {
       <Button variant="contained" style={{ margin: "20px" }} >
         <Link to="/listUser" style={{ textDecoration: 'none', color: "white" }}>List Users</Link>
       </Button>
+      <Button variant="contained" style={{ margin: "20px" }} >
+        <Link to="/deleteUserPage" style={{ textDecoration: 'none', color: "white" }}>Delete Users</Link>
+      </Button>
 
     </div>
   );
