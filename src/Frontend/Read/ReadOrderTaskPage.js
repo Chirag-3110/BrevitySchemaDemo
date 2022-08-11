@@ -1,11 +1,6 @@
 import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import PropTypes from "prop-types";
-import { styled } from "@mui/material/styles";
-import Box from "@mui/material/Box";
-// import TreeView from "@mui/lab/TreeView";
-// import TreeItem, { treeItemClasses } from "@mui/lab/TreeItem";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
@@ -23,7 +18,6 @@ function ReadOrderTaskPage() {
                 alert("order file is fecthed")
                 console.log(filefetched)
                 setfilelist(filefetched);
-                console.log(filelist)
             }
         }
         catch (error) {
@@ -40,24 +34,6 @@ function ReadOrderTaskPage() {
                     onChange={(id) => setId(id.target.value)}
                 />
                 <Button variant="contained" onClick={file}>readFile</Button>
-                {/* {
-                filelist.map((filelist1) =>
-                    <li>{filelist1.TaskName}</li>,
-
-                    filelist.UserFilePathList.map((item) =>
-                        <li style={{ margin: "10px" }}
-                            // onClick={() => fetchdata(filelist.filelist1)}
-
-                            key={filelist.id}
-                        >{filelist.item}</li>
-
-                    )
-
-                )
-            } */}
-
-
-
 
                 <List
                     style={{ color: "black" }}
@@ -65,13 +41,6 @@ function ReadOrderTaskPage() {
                 >
                     {filelist.map((filelist) => (
                         <>
-                            {/* <Box style={{ display: "flex", paddingBottom: "0.1px" }}> */}
-                            {/* <ListItem
-                                key={filelist.TaskName}
-                                disableGutters
-                                style={{ display: "block", border: "1px solid red" }} */}
-                            {/* // onClick={() => deleteItem(filelist)}
-                            // > */}
                             <li>{filelist.TaskName}</li>
                             {filelist.UserFilePathList.map((files) => (
                                 <ListItem
@@ -82,26 +51,16 @@ function ReadOrderTaskPage() {
                                         width: "100%",
                                         marginLeft: "50%"
                                     }}
-
-
                                 >
-
                                     <ListItemText
                                         onClick={() => fetchdata(files)}
                                         primary={files}
                                     />
                                 </ListItem>
                             ))}
-                            {/* </ListItem> */}
-                            {/* </Box> */}
                         </>
                     ))}
                 </List>
-
-
-
-
-
             </div >
         </>
     );
