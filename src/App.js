@@ -24,6 +24,8 @@ import UpdateWorkFlow from './Frontend/Update/UpdateWorkflow';
 
 import DeleteTaskComment from './Frontend/Delete/DeleteTaskComment';
 import DeleteWorkFlow from './Frontend/Delete/DeleteWorkflow';
+import DeleteUserPage from './Frontend/Delete/DeleteUserPage';
+
 
 function App() {
   return (
@@ -32,7 +34,8 @@ function App() {
         <Route exact path="/" element={<Home />} />
         <Route exact path="/user" element={<CreateUser />} />
         <Route exact path="/listUser" element={<ReadUserByOrg />}></Route>
-        
+        <Route exact path="/deleteUserPage" element={<DeleteUserPage />}></Route>
+
         <Route exact path="/order" element={<CreateOrder />} />
         <Route exact path="/ReadOrder" element={<ReadOrderPage />} />
         <Route exact path="/ordertask" element={<CreateOrderTask />} />
@@ -50,7 +53,7 @@ function App() {
         <Route exact path="/readworkflow" element={<ReadWorkflow />} />
         <Route exact path="/deleteworkflow" element={<DeleteWorkFlow />} />
         <Route exact path="/updateworkflow" element={<UpdateWorkFlow />} />
-        <Route exact path="/downloadupload" element ={<Url />}/>
+        <Route exact path="/downloadupload" element={<Url />} />
       </Routes>
     </div>
   );
